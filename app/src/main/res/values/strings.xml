@@ -2,10 +2,14 @@
 <resources>
 
     <string name="app_name">LocalLoc</string>
-    <string name="Button1">Button1</string>
-    <string name="Button2">Button2</string>
-    <string name="Button3">Button3</string>
-    <string name="Button4">Button4</string>
+    <string name="Button1">Button 1</string>
+    <string name="Button2">Button 2</string>
+    <string name="Button3">Button 3</string>
+    <string name="Button4">Button 4</string>
+    <string-array name="menu_items">
+        <item>Menu Item A</item>
+        <item>Menu Item B</item>
+    </string-array>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 

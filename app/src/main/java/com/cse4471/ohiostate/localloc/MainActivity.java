@@ -1,20 +1,67 @@
 package com.cse4471.ohiostate.localloc;
 
+import android.app.Activity;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.TextView;
 
 
 public class MainActivity extends AppCompatActivity {
 
+    private DrawerLayout drawerLayout;
+    private ListView drawerList;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main);
+        drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        drawerList = (ListView)findViewById(R.id.drawer_list);
 
+        drawerList.setAdapter(new ArrayAdapter<>(
+                this,
+                R.layout.drawer_list_item,
+                getResources().getStringArray(R.array.menu_items)));
 
+        drawerList.setOnItemClickListener(new DrawerItemClickListener());
+//        Button Button1 = (Button)findViewById(R.id.Button1);
+//        Button Button2 = (Button)findViewById(R.id.Button2);
+//        Button Button3 = (Button)findViewById(R.id.Button3);
+//        Button Button4 = (Button)findViewById(R.id.Button4);
+
+//        final TextView mainText = (TextView)findViewById(R.id.main_text);
+//        Button1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                mainText.setText("Hello~~");
+//            }
+//        });
+    }
+
+    private class DrawerItemClickListener implements ListView.OnItemClickListener{
+
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id){
+            if(position == 0){
+                findViewById(R.id.main_content).setBackgroundColor(getResources().getColor(
+                        android.R.color.holo_red_dark));
+            }
+            else{
+                findViewById(R.id.main_content).setBackgroundColor(getResources().getColor(
+                        android.R.color.holo_blue_dark));
+            }
+        }
     }
 
 
