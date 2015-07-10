@@ -3,38 +3,30 @@ package com.cse4471.ohiostate.localloc;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-/**
- * Created by Liz on 6/27/2015.
- */
+import android.os.Handler;
 
 public class SplashScreen extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
 
-        Thread timerThread = new Thread(){
-            public void run(){
-                try{
-                    sleep(3000);
-                }catch(InterruptedException e){
-                    e.printStackTrace();
-                }finally{
-                    Intent i = new Intent("com.cse4471.ohiostate.localloc.MAINACTIVITY");
-                    startActivity(i);
-                }
+            @Override
+        public void run(){
+                Intent openMainActivity = new Intent(SplashScreen.this, MainActivity.class);
+                startActivity(openMainActivity);
+                finish();
             }
-        };
-        timerThread.start();
+        }, 2500);
     }
 
     @Override
     protected void onPause() {
         // TODO Auto-generated method stub
         super.onPause();
-        finish();
     }
 
 }

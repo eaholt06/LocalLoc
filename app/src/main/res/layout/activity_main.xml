@@ -15,23 +15,27 @@
         android:layout_height="wrap_content" />
 
     <Button
-        android:text="Button 1"
-        android:layout_width="wrap_content"
+        android:id="@+id/Button1"
+        android:text="@string/Button1"
+        android:layout_width="385dp"
         android:layout_height="wrap_content" />
 
     <Button
-        android:text="Button 2"
-        android:layout_width="wrap_content"
+        android:id="@+id/Button2"
+        android:text="@string/Button2"
+        android:layout_width="385dp"
         android:layout_height="wrap_content" />
 
     <Button
-        android:text="Button 3"
-        android:layout_width="wrap_content"
+        android:id="@+id/Button3"
+        android:text="@string/Button3"
+        android:layout_width="385dp"
         android:layout_height="wrap_content" />
 
     <Button
-        android:text="Button 4"
-        android:layout_width="wrap_content"
+        android:id="@+id/Button4"
+        android:text="@string/Button4"
+        android:layout_width="385dp"
         android:layout_height="wrap_content" />
 
 
