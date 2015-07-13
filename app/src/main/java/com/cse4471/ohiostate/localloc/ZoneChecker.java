@@ -1,42 +1,41 @@
 package com.cse4471.ohiostate.localloc;
 
-import android.app.Activity;
 import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 
-import java.util.List;
+public class ZoneChecker {
 
-public class ZoneChecker extends Activity {
-
-    public boolean wifiConnection;
-    public boolean bluetootheConnection;
     public String ssid;
-    public List<BluetoothDevice> bluetoothID;
+    public String bluetoothID;
     public boolean safeZone;
-    private Context context;
 
     /**
      * Creator of initial representation.
      */
-    private void createNewRep() {
-
-        this.wifiConnection = false;
+    private void createNewRep(Context context) {
         this.ssid = "Not Connected";
-        this.bluetootheConnection = false;
-        this.bluetoothID = null;
+        this.bluetoothID = "Not Connected";
         this.safeZone = false;
+
+        IntentFilter filter1 = new IntentFilter(BluetoothDevice.ACTION_ACL_CONNECTED);
+        IntentFilter filter2 = new IntentFilter(BluetoothDevice.ACTION_ACL_DISCONNECTED);
+        context.registerReceiver(btReceiver, filter1);
+        context.registerReceiver(btReceiver, filter2);
+
     }
 
     /**
      * Default constructor.
      */
-    public ZoneChecker() {
+    public ZoneChecker(Context context) {
 
-        this.createNewRep();
+        this.createNewRep(context);
     }
 
 
@@ -53,58 +52,87 @@ public class ZoneChecker extends Activity {
     }
 
 
-    public final void reset() {
-        this.createNewRep();
-    }
+    /* (Complete)
+    Returns the name of the currently connected Wi-Fi Network, or 'Not Connected' if there is no
+    Wi-Fi connection.
+     */
+    public final void checkWIFI(Context context) {
 
-    public final void updateConnectionsInfo(Context context) {
-
-        //WI-FI Information
+        //Getting the Wi-Fi Service from the context
         WifiManager wifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+
+        //Default return value
+        this.ssid = "Not Connected";
         if (wifi.isWifiEnabled()) {
+
+            //Getting information about the Wi-Fi connection
             WifiInfo wifiInfo = wifi.getConnectionInfo();
             if (wifiInfo != null) {
                 NetworkInfo.DetailedState state = WifiInfo.getDetailedStateOf(wifiInfo
                         .getSupplicantState());
                 if (state == NetworkInfo.DetailedState.CONNECTED || state == NetworkInfo
-                    .DetailedState.OBTAINING_IPADDR) {
+                        .DetailedState.OBTAINING_IPADDR) {
                     this.ssid = wifiInfo.getSSID();
-                    this.wifiConnection = true;
                 }
             }
-        } else {
-            this.ssid = "Not Connected";
-        }
-
-        //Bluetooth Information
-        BluetoothManager bluetooth = (BluetoothManager) context.getSystemService(Context.BLUETOOTH_SERVICE);
-        this.bluetoothID = bluetooth.getConnectedDevices(2);
-        if (this.bluetoothID != null){
-            BluetoothDevice test = this.bluetoothID.get(1);
-                    test.getName();
-            this.bluetootheConnection = true;
-        }
-/*
-        //Geo Location Information
-        LocationManager loc = (LocationManager) context.getSystemService(Context
-                .LOCATION_SERVICE);
-        loc.getLastKnownLocation();
-*/
-    }
-
-    public final void updateZone() {
-
-        if (this.bluetootheConnection){
-            //check againse Jessica's class for bluetooth connectionc
-        } else if (this.wifiConnection) {
-            //check againse Jessica's class for wifi connections
-        } else {
-            //check againse Jessica's class for geo location
         }
     }
 
 
-    public final void updateSecurityProfile() {
-        //create listeners and call Andrew's class
+
+    /* (Completed UNTESTED)
+    Listens for changes in Bluetooth connections, and then adds them to this.bluetoothID
+     */
+    public final BroadcastReceiver btReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+
+            if (BluetoothDevice.ACTION_ACL_CONNECTED.equals(action)) {
+                updateBT(device.getAddress());
+
+            } else if (BluetoothDevice.ACTION_ACL_DISCONNECTED.equals(action)) {
+                updateBT("Not Connected");
+            }
+        }
+    };
+
+    private void updateBT (String btMAC){
+        this.bluetoothID = btMAC;
     }
+
+
+    /* (not started)
+    Returns the location of the device.
+     */
+    public final void checkGeo(Context context) {
+
+    }
+
+
+    public final boolean updateZone(Context context) {
+
+        //checking current wifi status
+        checkWIFI(context);
+        String ssid = this.ssid;
+
+        //Bluetooth status auto updates
+        String bt = this.bluetoothID;
+
+        //geo location info
+
+        //compare bt to Bluetooth Info
+        boolean btSafe = false;
+        //compare wifi to wifi list
+        boolean wifiSafe = false;
+        //compare geo to geo list
+        boolean geoSafe = false;
+
+        return btSafe || wifiSafe || geoSafe;
+
+
+    }
+
+
 }
