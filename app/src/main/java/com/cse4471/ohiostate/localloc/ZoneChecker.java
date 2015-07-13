@@ -1,4 +1,4 @@
-package com.cse4471.ohiostate.localloc;
+package com.example.john.testingoutput;
 
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
@@ -9,37 +9,37 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 
+
 public class ZoneChecker {
+
 
     public String ssid;
     public String bluetoothID;
     public boolean safeZone;
+    private boolean intentCreated;
+
 
     /**
      * Creator of initial representation.
      */
-    private void createNewRep(Context context) {
+    private void createNewRep() {
         this.ssid = "Not Connected";
         this.bluetoothID = "Not Connected";
         this.safeZone = false;
-
-        IntentFilter filter1 = new IntentFilter(BluetoothDevice.ACTION_ACL_CONNECTED);
-        IntentFilter filter2 = new IntentFilter(BluetoothDevice.ACTION_ACL_DISCONNECTED);
-        context.registerReceiver(btReceiver, filter1);
-        context.registerReceiver(btReceiver, filter2);
-
+        this.intentCreated = false;
     }
+
 
     /**
      * Default constructor.
      */
-    public ZoneChecker(Context context) {
+    public ZoneChecker () {
 
-        this.createNewRep(context);
+        this.createNewRep();
     }
 
 
-    public final ZoneChecker newInstance(Context context) {
+    public final ZoneChecker newInstance() {
 
 
         try {
@@ -79,8 +79,7 @@ public class ZoneChecker {
     }
 
 
-
-    /* (Completed UNTESTED)
+    /* (Complete)
     Listens for changes in Bluetooth connections, and then adds them to this.bluetoothID
      */
     public final BroadcastReceiver btReceiver = new BroadcastReceiver() {
@@ -97,6 +96,7 @@ public class ZoneChecker {
             }
         }
     };
+
 
     private void updateBT (String btMAC){
         this.bluetoothID = btMAC;
@@ -117,6 +117,13 @@ public class ZoneChecker {
         checkWIFI(context);
         String ssid = this.ssid;
 
+        if (!this.intentCreated){
+            IntentFilter filter1 = new IntentFilter(BluetoothDevice.ACTION_ACL_CONNECTED);
+            IntentFilter filter2 = new IntentFilter(BluetoothDevice.ACTION_ACL_DISCONNECTED);
+            context.registerReceiver(btReceiver, filter1);
+            context.registerReceiver(btReceiver, filter2);
+            this.intentCreated = true;
+        }
         //Bluetooth status auto updates
         String bt = this.bluetoothID;
 
@@ -130,9 +137,5 @@ public class ZoneChecker {
         boolean geoSafe = false;
 
         return btSafe || wifiSafe || geoSafe;
-
-
     }
-
-
 }
