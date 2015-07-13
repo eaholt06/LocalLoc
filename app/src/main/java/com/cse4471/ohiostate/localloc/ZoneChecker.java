@@ -117,6 +117,7 @@ public class ZoneChecker {
         checkWIFI(context);
         String ssid = this.ssid;
 
+        //creating Intents in the context to track Bluetooth connection changes
         if (!this.intentCreated){
             IntentFilter filter1 = new IntentFilter(BluetoothDevice.ACTION_ACL_CONNECTED);
             IntentFilter filter2 = new IntentFilter(BluetoothDevice.ACTION_ACL_DISCONNECTED);
@@ -124,8 +125,9 @@ public class ZoneChecker {
             context.registerReceiver(btReceiver, filter2);
             this.intentCreated = true;
         }
+
         //Bluetooth status auto updates
-        String bt = this.bluetoothID;
+        String btMAC = this.bluetoothID;
 
         //geo location info
 
