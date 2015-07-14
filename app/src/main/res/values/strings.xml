@@ -14,8 +14,12 @@
         <item>Menu Item A</item>
         <item>Menu Item B</item>
     </string-array>
+
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-
+    <string name="title_activity_create_safe_zone">createSafeZone</string>
+    <string name="title_activity_modify_safe_zone">modifySafeZone</string>
+    <string name="title_activity_delete_safe_zone">deleteSafeZone</string>
+    <string name="title_activity_settings">Settings</string>
 
 </resources>

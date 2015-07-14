@@ -37,35 +37,54 @@
             android:layout_width="275dp"
             android:layout_gravity="center_horizontal"
             android:id="@+id/button_table">
+
             <TableRow
                 android:layout_gravity="center_horizontal"
                 android:layout_height="90dp"
                 android:layout_width="match_parent">
                 <Button
                     android:id="@+id/Button1"
-                    android:layout_height="match_parent"
+                    android:layout_height="65dp"
                     android:layout_width="125dp"
-                    android:text="@string/Button1Text"/>
+                    android:text="@string/Button1Text"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/buttonSelector"
+                    android:onClick="buttonOnClick" />
                 <Button
                     android:id="@+id/Button2"
-                    android:layout_height="match_parent"
+                    android:layout_height="65dp"
                     android:layout_width="125dp"
-                    android:text="@string/Button2Text"/>
+                    android:layout_alignParentRight="true"
+                    android:text="@string/Button2Text"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/buttonSelector"
+                    android:onClick="buttonOnClick" />
             </TableRow>
             <TableRow
                 android:layout_gravity="center_horizontal"
                 android:layout_height="90dp"
                 android:layout_width="match_parent">
+
                 <Button
                     android:id="@+id/Button3"
-                    android:layout_height="match_parent"
+                    android:layout_height="65dp"
                     android:layout_width="125dp"
-                    android:text="@string/Button3Text"/>
+                    android:text="@string/Button3Text"
+
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/buttonSelector"
+                    android:onClick="buttonOnClick" />
                 <Button
                     android:id="@+id/Button4"
-                    android:layout_height="match_parent"
+                    android:layout_height="65dp"
                     android:layout_width="125dp"
-                    android:text="@string/Button4Text"/>
+                    android:text="@string/Button4Text"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/buttonSelector"
+                    android:clickable="true"
+                    android:onClick="buttonOnClick" />
             </TableRow>
         </TableLayout>
 
@@ -75,8 +94,10 @@
             android:layout_marginTop="30dp"
             android:layout_gravity="center_horizontal"
             android:text="@string/main_notInSafeZone"
+            android:textSize="19dp"
             android:textColor="#C1C2C2"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:clickable="true" />
 
         </LinearLayout>
 
