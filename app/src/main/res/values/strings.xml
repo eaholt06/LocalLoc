@@ -2,24 +2,35 @@
 <resources>
 
     <string name="app_name">LocalLoc</string>
-    <string name="Button1Text">Set new Safe Zone</string>
+    <string name="Button1Text">Set New Safe Zone</string>
     <string name="Button2Text">Modify Existing Safe Zone</string>
     <string name="Button3Text">Delete Existing Safe Zone</string>
     <string name="Button4Text">Settings</string>
     <string name="main_prompt_text">Pick an option below</string>
     <string name="main_notInSafeZone">You are currently not in a Safe Zone</string>
     <string name="main_inSafeZone">You are currently in a Safe Zone</string>
+    <string name="createSafeZone_main">Create new Safe Zone</string>
+    <string name="button_next">Next >></string>
+    <string name="button_back">\u003C\u003C Back</string>
+    <string name="type_prompt">What type of Safe Zone is this?</string>
+
+    <string-array name="zone_types">
+        <item>Geolocation</item>
+        <item>Bluetooth</item>
+        <item>Wifi</item>
+    </string-array>
 
     <string-array name="menu_items">
         <item>Menu Item A</item>
         <item>Menu Item B</item>
     </string-array>
 
-    <string name="hello_world">Hello world!</string>
+    <string name="hello_world">Testing... testing... 1, 2, 3</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_create_safe_zone">createSafeZone</string>
     <string name="title_activity_modify_safe_zone">modifySafeZone</string>
     <string name="title_activity_delete_safe_zone">deleteSafeZone</string>
     <string name="title_activity_settings">Settings</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

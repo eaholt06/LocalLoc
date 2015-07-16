@@ -1,4 +1,61 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:id="@+id/container"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    tools:context="com.cse4471.ohiostate.localloc.createSafeZone" tools:ignore="MergeRootFrame" />
+    tools:context="com.cse4471.ohiostate.localloc.createSafeZone" tools:ignore="MergeRootFrame"
+    android:paddingLeft="@dimen/main_horizontal_margin"
+    android:paddingRight="@dimen/main_horizontal_margin"
+    android:paddingTop="@dimen/main_vertical_margin"
+    android:paddingBottom="@dimen/main_vertical_margin"
+    android:background="@color/background_grey"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/createSafeZone_mainText"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:text="@string/createSafeZone_main"
+        android:textSize="32dp"
+        android:layout_gravity="center_horizontal|top"
+        android:background="@color/background_black"
+        android:textStyle="bold"
+        android:gravity="center_vertical"
+        android:paddingLeft="5dp"
+        android:paddingTop="20dp"
+        android:paddingRight="5dp"
+        android:paddingBottom="20dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:textColor="@color/theme_blue" />
+
+    <LinearLayout
+        android:id="@+id/createSafeZone_fragContainer"
+        android:layout_width="match_parent"
+        android:layout_height="310dp"
+        android:orientation="vertical">
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/createSafeZone_mainButtons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="15dp">
+        <Button
+            android:layout_width="@dimen/button_width"
+            android:layout_height="@dimen/button_height"
+            android:background="@drawable/button_selector"
+            android:text="@string/button_back"
+            android:layout_marginRight="10dp"
+            android:onClick="selectFragment"
+            android:id="@+id/back_button" />
+        <Button
+            android:layout_width="@dimen/button_width"
+            android:layout_height="@dimen/button_height"
+            android:background="@drawable/button_selector"
+            android:text="@string/button_next"
+            android:layout_marginLeft="10dp"
+            android:onClick="selectFragment"
+            android:id="@+id/next_button" />
+        </LinearLayout>
+</LinearLayout>
+

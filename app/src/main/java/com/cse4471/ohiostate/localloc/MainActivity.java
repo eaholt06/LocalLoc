@@ -2,74 +2,68 @@ package com.cse4471.ohiostate.localloc;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.drawable.StateListDrawable;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Layout;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TextView;
+
+import java.util.ConcurrentModificationException;
 
 //Previously extended appCompatActivity
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
 
 //    private DrawerLayout drawerLayout;
 //    private ListView drawerList;
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     public void buttonOnClick(View v){
         Intent nextActivity;
-        v.setBackground(getResources().getDrawable(R.drawable.buttonHover));
+        v.setBackground(getResources().getDrawable(R.drawable.button_hover));
         switch (v.getId()) {
             case R.id.Button1:
                 nextActivity = new Intent(MainActivity.this, createSafeZone.class);
+                Log.d(TAG, "set safe zone button pressed");
                 break;
             case R.id.Button2:
                 nextActivity = new Intent(MainActivity.this, modifySafeZone.class);
+                Log.d(TAG, "modify safe zone button pressed");
                 break;
             case R.id.Button3:
                 nextActivity = new Intent(MainActivity.this, deleteSafeZone.class);
+                Log.d(TAG, "delete safe zone button pressed");
                 break;
             case R.id.Button4:
                 nextActivity = new Intent(MainActivity.this, Settings.class);
+                Log.d(TAG, "settings button pressed");
                 break;
             default:
                 nextActivity = new Intent();
+                Log.d(TAG, "Something went wrong");
         }
         startActivity(nextActivity);
     }
 
-    View.OnHoverListener buttonHovering = new View.OnHoverListener(){
-
-        @Override
-        public boolean onHover(View v, MotionEvent event) {
-            switch (event.getAction()) {
-                case MotionEvent.ACTION_HOVER_ENTER:
-                    v.setBackgroundResource(R.drawable.buttonHover);
-                    break;
-                case MotionEvent.ACTION_HOVER_MOVE:
-                 //   mMessageTextView.setText("Move: " + event.getX() + ":" + event.getY());
-                    break;
-                case MotionEvent.ACTION_HOVER_EXIT:
-                    v.setBackgroundDrawable(getResources().getDrawable(R.drawable.button));
-                    break;
-            }
-            return false;
-        }
-    };
-
-
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+    }
+
+    @Override
+    protected void onRestart(){
+        super.onRestart();
+        setContentView(R.layout.activity_main);
+        //Reset background for all buttons
+        Button b1 = (Button)findViewById(R.id.Button1);
+        b1.setPressed(false);
+        Button b2 = (Button)findViewById(R.id.Button1);
+        b2.setPressed(false);
+        Button b3 = (Button)findViewById(R.id.Button1);
+        b3.setPressed(false);
+        Button b4 = (Button)findViewById(R.id.Button1);
+        b4.setPressed(false);
     }
 }
 /*  //      drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);

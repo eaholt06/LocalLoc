@@ -4,5 +4,10 @@
     <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
         <!-- Customize your theme here. -->
     </style>
+    <color name="background_grey">#303234</color>
+    <color name="theme_blue">#2CCCF6</color>
+    <color name="button_grey">#6C8596</color>
+    <color name="dark_blue">#9d050e4d</color>
+    <color name="background_black">#e1000000</color>
 
 </resources>

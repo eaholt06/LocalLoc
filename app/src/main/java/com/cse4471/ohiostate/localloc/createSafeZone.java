@@ -1,29 +1,114 @@
 package com.cse4471.ohiostate.localloc;
 
 import android.app.Activity;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
+import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Toast;
 
 
-public class createSafeZone extends Activity {
+public class createSafeZone extends AppCompatActivity {
+    private SafeZone sz;
+    FragmentManager fm;
+    int currentFrag;
+    private static final String TAG = createSafeZone.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_safe_zone);
-        if (savedInstanceState == null) {
+    /*    if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
+                    .add(R.id.createSafeZone_fragContainer, new PlaceholderFragment())
                     .commit();
+        } */
+
+        CSZNameFragment nameFrag = new CSZNameFragment();
+        fm = getFragmentManager();
+        //Fragment fragment = fm.findFragmentById(R.id.createSafeZone_fragContainer);
+        android.app.FragmentTransaction fragmentTransaction= fm.beginTransaction();
+        fragmentTransaction.add(R.id.createSafeZone_fragContainer, nameFrag).commit();
+        currentFrag = 1;
+    }
+
+    public void selectFragment(View v){
+        int buttonID = v.getId();
+        Button btn = (Button)findViewById(buttonID);
+        if(buttonID == R.id.next_button){
+            switch (currentFrag) {
+                case 1:
+                    //Pressing next button saves user defined title in SafeZone object
+                /*    EditText et = (EditText) findViewById(R.id.name_input);
+                    sz.setTitle(et.getText().toString()); */
+
+                    android.app.FragmentTransaction ft = fm.beginTransaction();
+                    ft.replace(R.id.createSafeZone_fragContainer, new CSZTypeFragment()).commit();
+
+                    currentFrag = 2;
+                    break;
+                case 2:
+                    //Pressing next button saves user's type choice in SafeZone object
+                    RadioGroup rg = (RadioGroup) findViewById(R.id.radioGroup);
+                    RadioButton rb = (RadioButton) findViewById(rg.getCheckedRadioButtonId());
+                    String zt = rb.getText().toString();
+                    sz.setZoneType(zt);
+
+                    String[] types = getApplicationContext().getResources().getStringArray(R.array.zone_types);
+                    Log.d(TAG, "From zone_types array. SelectFragment-case2: " + types[0]);
+                    if (zt.equals(types[0])) {
+                        android.app.FragmentTransaction ft2 = fm.beginTransaction();
+                        ft2.replace(R.id.createSafeZone_fragContainer, new CSZGeoFragment()).commit();
+                    } else if (zt.equals(types[1])) {
+                        android.app.FragmentTransaction ft2 = fm.beginTransaction();
+                        ft2.replace(R.id.createSafeZone_fragContainer, new CSZBluetoothFragment()).commit();
+                    } else if (zt.equals(types[2])) {
+                        android.app.FragmentTransaction ft2 = fm.beginTransaction();
+                        ft2.replace(R.id.createSafeZone_fragContainer, new CSZWifiFragment()).commit();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Please pick a Safe Zone type",
+                                Toast.LENGTH_LONG).show();
+                        break;
+                    }
+                    currentFrag = 3;
+                    Button next = (Button) findViewById(R.id.next_button);
+                    next.setVisibility(View.INVISIBLE);
+                    break;
+            }
         }
+        if(buttonID == R.id.back_button){
+            switch (currentFrag){
+                case 1:
+                    //Goes back to main activity and 'deletes' SafeZone object
+                    sz = null;
+                    this.finish();
+                case 2:
+                    android.app.FragmentTransaction ft = fm.beginTransaction();
+                    ft.replace(R.id.createSafeZone_fragContainer, new CSZNameFragment()).commit();
+                    currentFrag = 1;
+                    break;
+                case 3:
+                    android.app.FragmentTransaction ft2 = fm.beginTransaction();
+                    ft2.replace(R.id.createSafeZone_fragContainer, new CSZTypeFragment()).commit();
+                    currentFrag = 2;
+                    Button next = (Button)findViewById(R.id.next_button);
+                    next.setVisibility(View.VISIBLE);
+                    break;
+            }
+        }
+        btn.setPressed(false);
     }
 
 
@@ -51,7 +136,7 @@ public class createSafeZone extends Activity {
 
     /**
      * A placeholder fragment containing a simple view.
-     */
+
     public static class PlaceholderFragment extends Fragment {
 
         public PlaceholderFragment() {
@@ -60,8 +145,8 @@ public class createSafeZone extends Activity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_create_safe_zone, container, false);
+            View rootView = inflater.inflate(R.layout.PlaceholderFragment, container, false);
             return rootView;
         }
-    }
+    } */
 }
