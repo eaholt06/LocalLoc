@@ -25,6 +25,7 @@ public class createSafeZone extends AppCompatActivity {
     FragmentManager fm;
     int currentFrag;
     private static final String TAG = createSafeZone.class.getSimpleName();
+    CSZNameFragment nameFrag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,24 +37,39 @@ public class createSafeZone extends AppCompatActivity {
                     .commit();
         } */
 
-        CSZNameFragment nameFrag = new CSZNameFragment();
+        nameFrag = new CSZNameFragment();
         fm = getFragmentManager();
         //Fragment fragment = fm.findFragmentById(R.id.createSafeZone_fragContainer);
         android.app.FragmentTransaction fragmentTransaction= fm.beginTransaction();
-        fragmentTransaction.add(R.id.createSafeZone_fragContainer, nameFrag).commit();
+        fragmentTransaction.add(R.id.createSafeZone_fragContainer, nameFrag, "nameFrag").commit();
         currentFrag = 1;
+        sz = new SafeZone();
     }
 
     public void selectFragment(View v){
         int buttonID = v.getId();
         Button btn = (Button)findViewById(buttonID);
-        if(buttonID == R.id.next_button){
+        if(buttonID == R.id.next_button) {
             switch (currentFrag) {
                 case 1:
                     //Pressing next button saves user defined title in SafeZone object
-                /*    EditText et = (EditText) findViewById(R.id.name_input);
-                    sz.setTitle(et.getText().toString()); */
+                    // EditText et = (EditText) findViewById(R.id.name_input);
+                    // String title = et.getText().toString();
+                    // String title2 = nameFrag.getText(R.id.name_input).toString();
+                    EditText et = (EditText) getFragmentManager().findFragmentByTag("nameFrag").getView().findViewById(R.id.name_input);
+                    if (et == null) {
+                        Log.d(TAG, "edittext is empty");
+                    } else {
+                        String title = et.getText().toString();
+                        if (title.isEmpty()) {
+                            Log.d(TAG, "edittext is fine, gettext is empty");
+                            sz.setTitle("Default");
+                        } else {
+                            Log.d(TAG, "All is well. String is: " + title);
 
+                            sz.setTitle(title);
+                        }
+                    }
                     android.app.FragmentTransaction ft = fm.beginTransaction();
                     ft.replace(R.id.createSafeZone_fragContainer, new CSZTypeFragment()).commit();
 
@@ -63,6 +79,12 @@ public class createSafeZone extends AppCompatActivity {
                     //Pressing next button saves user's type choice in SafeZone object
                     RadioGroup rg = (RadioGroup) findViewById(R.id.radioGroup);
                     RadioButton rb = (RadioButton) findViewById(rg.getCheckedRadioButtonId());
+
+                    while (rb == null) {
+                        Toast.makeText(getApplicationContext(), "Please pick a Safe Zone type",
+                                Toast.LENGTH_LONG).show();
+                        rb = (RadioButton) findViewById(rg.getCheckedRadioButtonId());
+                    }
                     String zt = rb.getText().toString();
                     sz.setZoneType(zt);
 
@@ -77,17 +99,12 @@ public class createSafeZone extends AppCompatActivity {
                     } else if (zt.equals(types[2])) {
                         android.app.FragmentTransaction ft2 = fm.beginTransaction();
                         ft2.replace(R.id.createSafeZone_fragContainer, new CSZWifiFragment()).commit();
-                    } else {
-                        Toast.makeText(getApplicationContext(), "Please pick a Safe Zone type",
-                                Toast.LENGTH_LONG).show();
-                        break;
                     }
                     currentFrag = 3;
                     Button next = (Button) findViewById(R.id.next_button);
                     next.setVisibility(View.INVISIBLE);
-                    break;
+                }
             }
-        }
         if(buttonID == R.id.back_button){
             switch (currentFrag){
                 case 1:

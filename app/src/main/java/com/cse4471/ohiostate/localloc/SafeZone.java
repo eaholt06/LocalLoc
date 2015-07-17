@@ -20,7 +20,7 @@ public class SafeZone {
     }
 
     public void setTitle(String Title) {
-        this.mTitle = Title;
+        mTitle = Title;
     }
 
     public String getTitle() {
