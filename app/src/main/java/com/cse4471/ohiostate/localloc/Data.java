@@ -1,9 +1,13 @@
 package com.cse4471.ohiostate.localloc;
 
 import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.provider.BaseColumns;
-import android.view.View;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Created by Yalith on 7/18/2015.
@@ -13,7 +17,7 @@ public final class Data {
     // give it an empty constructor.
     public Data() {}
 
-
+    private Context context;
 
     public void AddToBluetooth(String mac, String deviceID) {
         SafeZoneDBHelper DBHelper = new SafeZoneDBHelper(context);
@@ -53,12 +57,10 @@ public final class Data {
 
         SQLiteDatabase db = DBHelper.getWritableDatabase();
 
-        String[] selectionArgs = {mac};
-
         int deleted = db.delete(
                 DataContract.BluetoothTable.TABLE_NAME,
-                DataContract.BluetoothTable.COLUMN_MAC,
-                selectionArgs);
+                DataContract.BluetoothTable.COLUMN_MAC + "=" + mac,
+                null);
 
         db.close();
     }
@@ -68,15 +70,93 @@ public final class Data {
 
         SQLiteDatabase db = DBHelper.getWritableDatabase();
 
-        String[] selectionArgs = {ssid};
-
         int deleted = db.delete(
                 DataContract.WifiTable.TABLE_NAME,
-                DataContract.WifiTable.COLUMN_SSID,
-                selectionArgs);
+                DataContract.WifiTable.COLUMN_SSID + "=" + ssid,
+                null);
 
         db.close();
     }
 
+    public void UpdateBluetooth(String mac, String newDeviceID) {
+        SafeZoneDBHelper DBHelper = new SafeZoneDBHelper(context);
+
+        SQLiteDatabase db = DBHelper.getWritableDatabase();
+
+        String[] selectionArgs = {mac};
+
+        ContentValues values = new ContentValues();
+        values.put(DataContract.BluetoothTable.COLUMN_DEVICE_ID, newDeviceID);
+
+        int count = db.update(
+                DataContract.BluetoothTable.TABLE_NAME,
+                values,
+                DataContract.BluetoothTable.COLUMN_MAC + "=" + mac,
+                null);
+
+        db.close();
+    }
+
+    public Map ListBluetooth() {
+        SafeZoneDBHelper DBHelper = new SafeZoneDBHelper(context);
+
+        SQLiteDatabase db = DBHelper.getReadableDatabase();
+
+        String[] projection = {
+                DataContract.BluetoothTable.COLUMN_MAC,
+                DataContract.BluetoothTable.COLUMN_DEVICE_ID};
+
+        Cursor c = db.query(
+                DataContract.BluetoothTable.TABLE_NAME,
+                projection,
+                null,
+                null,
+                null,
+                null,
+                DataContract.BluetoothTable.COLUMN_DEVICE_ID);
+
+        LinkedHashMap bluetoothList;
+        String mac, deviceID;
+        c.moveToFirst();
+        while(c.moveToNext()) {
+            mac = c.getString(0);
+            deviceID = c.getString(1);
+            bluetoothList.put(mac,deviceID);
+        }
+
+        c.close();
+
+        return bluetoothList;
+    }
+
+    public ArrayList ListWifi() {
+        SafeZoneDBHelper DBHelper = new SafeZoneDBHelper(context);
+
+        SQLiteDatabase db = DBHelper.getReadableDatabase();
+
+        String[] projection = {
+                DataContract.WifiTable.COLUMN_SSID};
+
+        Cursor c = db.query(
+                DataContract.BluetoothTable.TABLE_NAME,
+                projection,
+                null,
+                null,
+                null,
+                null,
+                DataContract.WifiTable.COLUMN_SSID);
+
+        ArrayList wifiList;
+        String ssid;
+        c.moveToFirst();
+        while(c.moveToNext()) {
+            ssid = c.getString(0);
+            wifiList.put(ssid);
+        }
+
+        c.close();
+
+        return wifiList;
+    }
 
 }
