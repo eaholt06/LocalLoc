@@ -7,10 +7,11 @@
     <string name="Button3">Button 3</string>
     <string name="Button4">Button 4</string>
     <string-array name="menu_items">
-        <item>Menu Item A</item>
-        <item>Menu Item B</item>
+        <item>Lock Screen Settings</item>
+        <item>Choose a Safe Zone</item>
+        <item>Location Settings</item>
+        <item>Other stuff</item>
     </string-array>
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
 
