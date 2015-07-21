@@ -59,7 +59,7 @@ public final class Data {
 
         int deleted = db.delete(
                 DataContract.BluetoothTable.TABLE_NAME,
-                DataContract.BluetoothTable.COLUMN_MAC + "=" + mac,
+                DataContract.BluetoothTable.COLUMN_MAC + "='" + mac + "'",
                 null);
 
         db.close();
@@ -72,7 +72,7 @@ public final class Data {
 
         int deleted = db.delete(
                 DataContract.WifiTable.TABLE_NAME,
-                DataContract.WifiTable.COLUMN_SSID + "=" + ssid,
+                DataContract.WifiTable.COLUMN_SSID + "='" + ssid + "'",
                 null);
 
         db.close();
@@ -91,7 +91,7 @@ public final class Data {
         int count = db.update(
                 DataContract.BluetoothTable.TABLE_NAME,
                 values,
-                DataContract.BluetoothTable.COLUMN_MAC + "=" + mac,
+                DataContract.BluetoothTable.COLUMN_MAC + "='" + mac + "'",
                 null);
 
         db.close();
@@ -157,6 +157,58 @@ public final class Data {
         c.close();
 
         return wifiList;
+    }
+
+    public boolean IsInBluetooth(String mac) {
+        SafeZoneDBHelper DBHelper = new SafeZoneDBHelper(context);
+
+        SQLiteDatabase db = DBHelper.getReadableDatabase();
+
+        boolean isInDB = false;
+
+        String[] projection = {
+                DataContract.BluetoothTable.COLUMN_MAC};
+
+        Cursor c = db.query(
+                DataContract.BluetoothTable.TABLE_NAME,
+                projection,
+                DataContract.BluetoothTable.COLUMN_MAC + "='" + mac + "'",
+                null,
+                null,
+                null,
+                null);
+
+        if (c.getCount() > 0) {
+            isInDB = true;
+        }
+
+        return isInDB;
+    }
+
+    public boolean IsInWifi(String ssid) {
+        SafeZoneDBHelper DBHelper = new SafeZoneDBHelper(context);
+
+        SQLiteDatabase db = DBHelper.getReadableDatabase();
+
+        boolean isInDB = false;
+
+        String[] projection = {
+                DataContract.WifiTable.COLUMN_SSID};
+
+        Cursor c = db.query(
+                DataContract.WifiTable.TABLE_NAME,
+                projection,
+                DataContract.WifiTable.COLUMN_SSID + "='" + ssid + "'",
+                null,
+                null,
+                null,
+                null);
+
+        if (c.getCount() > 0) {
+            isInDB = true;
+        }
+
+        return isInDB;
     }
 
 }
