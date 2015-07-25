@@ -11,8 +11,7 @@ import java.util.Map;
 
 /**
  * Created by Yalith on 7/18/2015.
- */
-
+*/
 public final class Data {
     // To prevent someone from accidentally instantiating this class,
     // give it an empty constructor.
@@ -128,6 +127,7 @@ public final class Data {
         c.close();
 
         return bluetoothList;
+
     }
 
     public ArrayList ListWifi() {
@@ -208,8 +208,6 @@ public final class Data {
         if (c.getCount() > 0) {
             isInDB = true;
         }
-
         return isInDB;
     }
-
 }
