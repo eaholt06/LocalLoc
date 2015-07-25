@@ -32,6 +32,11 @@ public class SafeZoneDBHelper extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+    public void onUpgrade(SQLiteDatabase db, int a, int b){
+        //This needs to be created
+
+    }
+
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_BLUETOOTH);
         db.execSQL(SQL_CREATE_WIFI);
