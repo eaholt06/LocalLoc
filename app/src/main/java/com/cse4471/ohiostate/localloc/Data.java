@@ -12,6 +12,7 @@ import java.util.Map;
 /**
  * Created by Yalith on 7/18/2015.
  */
+
 public final class Data {
     // To prevent someone from accidentally instantiating this class,
     // give it an empty constructor.
@@ -115,7 +116,7 @@ public final class Data {
                 null,
                 DataContract.BluetoothTable.COLUMN_DEVICE_ID);
 
-        LinkedHashMap bluetoothList;
+        LinkedHashMap bluetoothList = new LinkedHashMap();
         String mac, deviceID;
         c.moveToFirst();
         while(c.moveToNext()) {
@@ -146,12 +147,12 @@ public final class Data {
                 null,
                 DataContract.WifiTable.COLUMN_SSID);
 
-        ArrayList wifiList;
+        ArrayList wifiList = new ArrayList();
         String ssid;
         c.moveToFirst();
         while(c.moveToNext()) {
             ssid = c.getString(0);
-            wifiList.put(ssid);
+            wifiList.add(ssid);
         }
 
         c.close();

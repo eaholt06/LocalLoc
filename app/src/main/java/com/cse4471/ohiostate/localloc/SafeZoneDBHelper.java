@@ -3,7 +3,6 @@ package com.cse4471.ohiostate.localloc;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.provider.BaseColumns;
 
 /**
  * Created by Yalith on 7/18/2015.
@@ -32,10 +31,18 @@ public class SafeZoneDBHelper extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+	public void onUpgrade(SQLiteDatabase db, int a, int b){
+		//This needs to be created
+
+	}
+
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_BLUETOOTH);
         db.execSQL(SQL_CREATE_WIFI);
+
     }
+
+
 
 }
 
