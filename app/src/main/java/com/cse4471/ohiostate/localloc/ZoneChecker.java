@@ -1,4 +1,5 @@
-package com.example.john.testingoutput;
+package com.cse4471.ohiostate.localloc;
+
 
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;

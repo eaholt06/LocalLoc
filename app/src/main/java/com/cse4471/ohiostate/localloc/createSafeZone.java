@@ -1,18 +1,12 @@
 package com.cse4471.ohiostate.localloc;
 
-import android.app.Activity;
 import android.app.FragmentManager;
-import android.content.Intent;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.os.Build;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -49,7 +43,7 @@ public class createSafeZone extends AppCompatActivity {
     public void selectFragment(View v){
         int buttonID = v.getId();
         Button btn = (Button)findViewById(buttonID);
-        if(buttonID == R.id.next_button) {
+        if(buttonID == R.id.button_next) {
             switch (currentFrag) {
                 case 1:
                     //Pressing next button saves user defined title in SafeZone object
@@ -101,11 +95,11 @@ public class createSafeZone extends AppCompatActivity {
                         ft2.replace(R.id.createSafeZone_fragContainer, new CSZWifiFragment()).commit();
                     }
                     currentFrag = 3;
-                    Button next = (Button) findViewById(R.id.next_button);
+                    Button next = (Button) findViewById(R.id.button_next);
                     next.setVisibility(View.INVISIBLE);
                 }
             }
-        if(buttonID == R.id.back_button){
+        if(buttonID == R.id.button_back){
             switch (currentFrag){
                 case 1:
                     //Goes back to main activity and 'deletes' SafeZone object
@@ -120,7 +114,7 @@ public class createSafeZone extends AppCompatActivity {
                     android.app.FragmentTransaction ft2 = fm.beginTransaction();
                     ft2.replace(R.id.createSafeZone_fragContainer, new CSZTypeFragment()).commit();
                     currentFrag = 2;
-                    Button next = (Button)findViewById(R.id.next_button);
+                    Button next = (Button)findViewById(R.id.button_next);
                     next.setVisibility(View.VISIBLE);
                     break;
             }
