@@ -7,12 +7,27 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+
 //Previously extended appCompatActivity
-public class MainActivity extends AppCompatActivity {
+public class MainActivity
+        extends     AppCompatActivity
+        implements  GoogleApiClient.ConnectionCallbacks,
+                    GoogleApiClient.OnConnectionFailedListener {
 
 //    private DrawerLayout drawerLayout;
 //    private ListView drawerList;
     private static final String TAG = MainActivity.class.getSimpleName();
+    private ZoneChecker zone;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        this.zone = new ZoneChecker(this);
+
+    }
 
     public void buttonOnClick(View v){
         Intent nextActivity;
@@ -42,24 +57,36 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-    }
-
-    @Override
     protected void onRestart(){
         super.onRestart();
         setContentView(R.layout.activity_main);
         //Reset background for all buttons
         Button b1 = (Button)findViewById(R.id.Button1);
         b1.setPressed(false);
-        Button b2 = (Button)findViewById(R.id.Button1);
+        Button b2 = (Button)findViewById(R.id.Button2);
         b2.setPressed(false);
-        Button b3 = (Button)findViewById(R.id.Button1);
+        Button b3 = (Button)findViewById(R.id.Button3);
         b3.setPressed(false);
-        Button b4 = (Button)findViewById(R.id.Button1);
+        Button b4 = (Button)findViewById(R.id.Button4);
         b4.setPressed(false);
+    }
+
+
+    @Override
+    public void onConnected (Bundle bundle) {
+
+    }
+
+
+    @Override
+    public void onConnectionSuspended (int i) {
+
+    }
+
+
+    @Override
+    public void onConnectionFailed (ConnectionResult connectionResult) {
+
     }
 }
 /*  //      drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
