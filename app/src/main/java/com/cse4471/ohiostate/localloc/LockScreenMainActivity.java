@@ -14,68 +14,101 @@ public class LockScreenMainActivity extends AppCompatActivity{
     private String buttonPress;
     private int pinLength = 4;
     private TextView mainText = (TextView)findViewById(R.id.Pin_text);
-    private Button button1 = (Button)findViewById(R.id.button1);
-    private Button button2 = (Button)findViewById(R.id.button2);
-    private Button button3 = (Button)findViewById(R.id.button3);
-    private Button button4 = (Button)findViewById(R.id.button4);
-    private Button button5 = (Button)findViewById(R.id.button5);
-    private Button button6 = (Button)findViewById(R.id.button6);
-    private Button button7 = (Button)findViewById(R.id.button7);
-    private Button button8 = (Button)findViewById(R.id.button8);
-    private Button button9 = (Button)findViewById(R.id.button9);
-    private Button button0 = (Button)findViewById(R.id.button0);
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.lockscreenactivity_main);
-        if(masterP.equals("")){
-            setPin(masterP);
-        }
-
-    }
-
-
-    @Override
-    public void onClick(View v){
-
+        setContentView(R.layout.activity_main);
+        mainText  = (TextView)findViewById(R.id.Pin);
+        final Button button1 = (Button)findViewById(R.id.button1);
+        final Button button2 = (Button)findViewById(R.id.button2);
+        final Button button3 = (Button)findViewById(R.id.button3);
+        final Button button4 = (Button)findViewById(R.id.button4);
+        final Button button5 = (Button)findViewById(R.id.button5);
+        final Button button6 = (Button)findViewById(R.id.button6);
+        final Button button7 = (Button)findViewById(R.id.button7);
+        final Button button8 = (Button)findViewById(R.id.button8);
+        final Button button9 = (Button)findViewById(R.id.button9);
+        final Button button0 = (Button)findViewById(R.id.button0);
+        final Button confirmButton = (Button)findViewById(R.id.confirm);
+        checkPin();
         if(buttonPress.length() < pinLength){
-            switch (v.getId()) {
-                case R.id.button1:
+            button1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
                     buttonPress = buttonPress.concat(button1.getText().toString());
-                    break;
-                case R.id.button2:
+                }
+            });
+            button2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
                     buttonPress = buttonPress.concat(button2.getText().toString());
-                    break;
-                case R.id.button3:
+                }
+            });
+            button3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
                     buttonPress = buttonPress.concat(button3.getText().toString());
-                    break;
-                case R.id.button4:
+                }
+            });
+            button4.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
                     buttonPress = buttonPress.concat(button4.getText().toString());
-                    break;
-                case R.id.button5:
+                }
+            });
+            button5.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
                     buttonPress = buttonPress.concat(button5.getText().toString());
-                    break;
-                case R.id.button6:
+                }
+            });
+            button6.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
                     buttonPress = buttonPress.concat(button6.getText().toString());
-                    break;
-                case R.id.button7:
+                }
+            });
+            button7.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
                     buttonPress = buttonPress.concat(button7.getText().toString());
-                    break;
-                case R.id.button8:
+                }
+            });
+            button8.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
                     buttonPress = buttonPress.concat(button8.getText().toString());
-                    break;
-                case R.id.button9:
+                }
+            });button9.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
                     buttonPress = buttonPress.concat(button9.getText().toString());
-                    break;
-                case R.id.button0:
+                }
+            });button0.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
                     buttonPress = buttonPress.concat(button0.getText().toString());
-                    break;
-            }
+                }
+            });
         }
+
+        confirmButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(buttonPress.length() == pinLength && buttonPress.equals(masterP)){
+                    mainText.setText("Confirmed!");
+                }
+                else {
+                    buttonPress = "";
+                    mainText.setText("Incorrect, Renter Pin");
+                }
+            }
+        });
+
     }
 
-    public void setPin(String masterP){
+    public void setPin(){
             mainText.setText("Enter Master PIN");
             if(buttonPress.length() == 4){
                 masterP = buttonPress;
@@ -85,12 +118,12 @@ public class LockScreenMainActivity extends AppCompatActivity{
     public void onStart(){
         super.onStart();
         //check listeners here first
-        checkPin(masterP);
+        checkPin();
     }
 
-    private void checkPin(String string){
+    private void checkPin(){
         if(masterP.equals("")){
-            setPin(masterP);
+            setPin();
         }
     }
 }
