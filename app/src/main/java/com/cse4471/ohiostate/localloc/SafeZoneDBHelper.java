@@ -6,7 +6,18 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 
 /**
- * Created by Yalith on 7/18/2015.
+ * @author Jessica Gillespie
+ * @version 07262015
+ *
+ * This class creates the SQLite database for storing safe zones.
+ * The database has two tables: Bluetooth and Wifi, each stores the
+ * respective connections.  The Bluetooth table has two columns: the mac
+ * address of the connected device and the ID of the connected device.
+ * The wifi table has a single column of the connection ssids.
+ *
+ * The mac address and ssid columns are primary keys and therefore must
+ * be unique.
+ *
  */
 public class SafeZoneDBHelper extends SQLiteOpenHelper {
 

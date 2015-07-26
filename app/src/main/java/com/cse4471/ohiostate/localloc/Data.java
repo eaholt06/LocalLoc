@@ -13,6 +13,7 @@ import java.util.Map;
  * @author Jessica Gillespie
  * @version 07262015
  *
+ * This class has methods to run the sql database for storing safe zones.
  *
 */
 public final class Data {

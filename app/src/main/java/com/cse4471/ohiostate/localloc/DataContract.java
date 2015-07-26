@@ -3,7 +3,12 @@ package com.cse4471.ohiostate.localloc;
 import android.provider.BaseColumns;
 
 /**
- * Created by Yalith on 7/18/2015.
+ * @author Jessica Gillespie
+ * @version 07262015
+ *
+ * This class defines variables for the safe zone database
+ * tables and columns
+ *
  */
 public class DataContract {
     //The following inner classes define each table in the database
@@ -16,9 +21,5 @@ public class DataContract {
     public static abstract class WifiTable implements BaseColumns {
         public static final String TABLE_NAME = "WIFI";
         public static final String COLUMN_SSID = "ssid";
-    }
-
-    public static abstract class GPSTable implements BaseColumns {
-        public static final String TABLE_NAME = "GPS";
     }
 }
