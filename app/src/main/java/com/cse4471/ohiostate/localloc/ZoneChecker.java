@@ -7,26 +7,26 @@ import android.content.Context;
 public class ZoneChecker {
 
 
-    public String ssid;
-    public String bluetoothID;
-    public String bluetoothMAC;
-    public boolean safeZone;
-    private WiFi wifi;
-    private Bluetooth bt;
-    private GeoLocation geo;
+    public static String ssid;
+    public static String bluetoothID;
+    public static String bluetoothMAC;
+    public static boolean safeZone;
+    public static WiFi wifi;
+    public static Bluetooth bt;
+    //public static GeoLocation geo;
 
 
     /**
      * Creator of initial representation.
      */
     private void createNewRep(Context context) {
-        this.wifi = new WiFi();
-        this.bt = new Bluetooth(context);
-        this.geo = new GeoLocation(context);
-        this.ssid = "Not Connected";
-        this.bluetoothID = "Not Connected";
-        this.bluetoothMAC = null;
-        this.safeZone = false;
+        wifi = new WiFi();
+        bt = new Bluetooth(context);
+        //geo = new GeoLocation(context);
+        ssid = "Not Connected";
+        bluetoothID = "Not Connected";
+        bluetoothMAC = null;
+        safeZone = false;
 
     }
 
@@ -39,21 +39,21 @@ public class ZoneChecker {
     }
 
 
-    public final boolean updateZone(Context context) {
+    public static boolean updateZone(Context context) {
 
-        this.wifi.checkWIFI(context);
-        this.wifi.ssid = this.ssid;
+        wifi.checkWIFI(context);
+        ssid = wifi.ssid;
 
-        this.bluetoothID = this.bt.bluetoothID;
-        this.bluetoothMAC = this.bt.bluetoothMAC;
+        bluetoothID = bt.bluetoothID;
+        bluetoothMAC = bt.bluetoothMAC;
 
         //compare bt to Bluetooth Info
         boolean btSafe = false;
         //compare wifi to wifi list
         boolean wifiSafe = false;
         //compare geo to geo list
-        boolean geoSafe = false;
+        //boolean geoSafe = false;
 
-        return btSafe || wifiSafe || geoSafe;
+        return btSafe || wifiSafe;
     }
 }

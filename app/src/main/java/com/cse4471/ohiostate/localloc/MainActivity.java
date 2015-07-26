@@ -19,14 +19,12 @@ public class MainActivity
 //    private DrawerLayout drawerLayout;
 //    private ListView drawerList;
     private static final String TAG = MainActivity.class.getSimpleName();
-    private ZoneChecker zone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        this.zone = new ZoneChecker(this);
-
+        new ZoneChecker(this);
     }
 
     public void buttonOnClick(View v){
