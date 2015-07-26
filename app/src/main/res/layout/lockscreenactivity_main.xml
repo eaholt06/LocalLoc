@@ -88,13 +88,15 @@
             android:id="@+id/button9"
             android:layout_gravity="right|bottom"
             android:textSize="48dp" />
+
+
     </FrameLayout>
 
     <Button
         android:layout_width="130dp"
         android:layout_height="130dp"
         android:text="0"
-        android:id="@+id/button10"
+        android:id="@+id/button0"
         android:layout_gravity="center_horizontal"
         android:textSize="48dp" />
 
