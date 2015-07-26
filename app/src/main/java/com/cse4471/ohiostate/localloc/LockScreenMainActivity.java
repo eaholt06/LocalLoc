@@ -7,9 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-/**
- * Created by AC on 7/23/2015.
- */
+
 public class LockScreenMainActivity extends AppCompatActivity{
 
     private String masterP;
