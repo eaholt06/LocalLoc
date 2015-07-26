@@ -13,7 +13,7 @@ public class LockScreenMainActivity extends AppCompatActivity{
     private String masterP;
     private String buttonPress;
     private int pinLength = 4;
-    private TextView mainText = (TextView)findViewById(R.id.Pin_text);
+    private TextView mainText = (TextView)findViewById(R.id.Pin);
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
