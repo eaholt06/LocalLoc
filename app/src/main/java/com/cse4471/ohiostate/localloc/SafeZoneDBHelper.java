@@ -44,8 +44,8 @@ public class SafeZoneDBHelper extends SQLiteOpenHelper {
     }
 
     public void onUpgrade(SQLiteDatabase db, int a, int b) {
-        //This needs to be created
-
+        //This method is not written as this database
+        //will not need to be upgraded
     }
 
     public void onCreate(SQLiteDatabase db) {
