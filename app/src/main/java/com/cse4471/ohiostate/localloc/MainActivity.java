@@ -1,15 +1,11 @@
 package com.cse4471.ohiostate.localloc;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-
-import java.util.ConcurrentModificationException;
 
 //Previously extended appCompatActivity
 public class MainActivity extends AppCompatActivity {
@@ -20,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void buttonOnClick(View v){
         Intent nextActivity;
-        v.setBackground(getResources().getDrawable(R.drawable.button_hover));
+        //v.setBackground(getResources().getDrawable(R.drawable.button_hover));
         switch (v.getId()) {
             case R.id.Button1:
                 nextActivity = new Intent(MainActivity.this, createSafeZone.class);
