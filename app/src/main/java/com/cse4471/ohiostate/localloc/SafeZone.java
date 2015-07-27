@@ -4,7 +4,6 @@ import android.content.Context;
 import android.location.Location;
 
 import java.util.UUID;
-
 /**
  * Created by Liz on 7/15/2015.
  */
@@ -14,7 +13,6 @@ public class SafeZone {
     private String mZoneType;
     private String mDeviceId;
     private Location mGeo;
-    public ZoneChecker zone = new ZoneChecker();
 
     public SafeZone()
 
@@ -25,6 +23,7 @@ public class SafeZone {
     }
 
     public void setTitle(String Title) {
+
         mTitle = Title;
     }
 
@@ -50,17 +49,17 @@ public class SafeZone {
 
     public void setDeviceId(Context context, String DeviceId) {
 
-        zone.updateZone(context);
+        ZoneChecker.updateZone(context);
 
-        if (this.getZoneType() == "Wifi") {
-            if (zone.ssid != "Not Connected") {
-                this.mDeviceId = zone.ssid;
+        if (this.getZoneType().equals("WiFi")) {
+            if (!ZoneChecker.ssid.equals("Not Connected")){
+                this.mDeviceId = ZoneChecker.ssid;
             } else {
                 this.mDeviceId = DeviceId;
             }
-        } else if (this.getZoneType() == "Bluetooth") {
-            if (zone.bluetoothID != "Not Connected") {
-                this.mDeviceId = zone.bluetoothID;
+        } else if (this.getZoneType().equals("Bluetooth")) {
+            if (!ZoneChecker.bluetoothID.equals("Not Connected")) {
+                this.mDeviceId = ZoneChecker.bluetoothID;
             } else {
                 this.mDeviceId = DeviceId;
             }

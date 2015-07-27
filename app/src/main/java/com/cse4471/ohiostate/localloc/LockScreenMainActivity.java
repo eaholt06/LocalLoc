@@ -1,6 +1,5 @@
 package com.cse4471.ohiostate.localloc;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -17,6 +16,10 @@ public class LockScreenMainActivity extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
+
+
+        boolean safe = ZoneChecker.updateZone(this);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mainText  = (TextView)findViewById(R.id.Pin);
