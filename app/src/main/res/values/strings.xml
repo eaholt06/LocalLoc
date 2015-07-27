@@ -2,10 +2,10 @@
 <resources>
 
     <string name="app_name">LocalLoc</string>
-    <string name="Button1Text">Set New Safe Zone</string>
-    <string name="Button2Text">Modify Existing Safe Zone</string>
-    <string name="Button3Text">Delete Existing Safe Zone</string>
-    <string name="Button4Text">Settings</string>
+    <string name="Button1Text">Set New\nSafe Zone</string>
+    <string name="Button2Text">Modify\nSafe Zone</string>
+    <string name="Button3Text">Delete\nSafe Zone</string>
+    <string name="Button4Text">Settings\n</string>
     <string name="main_prompt_text">Pick an option below</string>
     <string name="main_notInSafeZone">You are currently not in a Safe Zone</string>
     <string name="main_inSafeZone">You are currently in a Safe Zone</string>

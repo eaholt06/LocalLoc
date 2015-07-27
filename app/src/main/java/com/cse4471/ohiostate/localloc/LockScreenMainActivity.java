@@ -19,8 +19,8 @@ public class LockScreenMainActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState){
 
-
-        boolean safe = ZoneChecker.updateZone(this);
+        ZoneChecker.updateZone(this);
+        boolean safe = ZoneChecker.checkZone();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
