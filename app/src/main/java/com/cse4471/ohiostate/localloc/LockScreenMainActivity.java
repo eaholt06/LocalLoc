@@ -1,8 +1,10 @@
 package com.cse4471.ohiostate.localloc;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -23,6 +25,8 @@ public class LockScreenMainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mainText  = (TextView)findViewById(R.id.Pin);
+        openLockScreen();
+        startService(new Intent(this, LockScreenService.class));
         final Button button1 = (Button)findViewById(R.id.button1);
         final Button button2 = (Button)findViewById(R.id.button2);
         final Button button3 = (Button)findViewById(R.id.button3);
@@ -114,6 +118,13 @@ public class LockScreenMainActivity extends AppCompatActivity{
         });
     }
 
+    public void openLockScreen() {
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        this.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
+                View.SYSTEM_UI_FLAG_IMMERSIVE);
+    }
+
     public void setPin(){
             mainText.setText("Enter Master PIN");
             if(buttonPress.length() == 4){
@@ -121,9 +132,18 @@ public class LockScreenMainActivity extends AppCompatActivity{
             }
     }
 
+    public void unlockScreen(View view) {
+        android.os.Process.killProcess((android.os.Process.myPid()));
+    }
+
     private void checkPin(){
         if(masterP.equals("")){
             setPin();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+
     }
 }
