@@ -97,7 +97,11 @@ public class LockScreenMainActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 if(buttonPress.length() == pinLength && buttonPress.equals(masterP)){
-                    mainText.setText("Confirmed!");
+                    Intent startMain = new Intent(Intent.ACTION_MAIN);
+                    startMain.addCategory(Intent.CATEGORY_HOME);
+                    startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(startMain);
+                    mainText.setText("Enter PIN");
                 }
                 else {
                     buttonPress = "";
@@ -105,7 +109,6 @@ public class LockScreenMainActivity extends AppCompatActivity{
                 }
             }
         });
-
     }
 
     public void setPin(){
@@ -113,12 +116,6 @@ public class LockScreenMainActivity extends AppCompatActivity{
             if(buttonPress.length() == 4){
                 masterP = buttonPress;
             }
-    }
-
-    public void onStart(){
-        super.onStart();
-        //check listeners here first
-        checkPin();
     }
 
     private void checkPin(){

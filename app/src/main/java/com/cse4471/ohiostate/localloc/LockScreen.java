@@ -16,7 +16,6 @@ public class LockScreen extends Activity {
         startService(new Intent(this, LockScreenService.class));
 
         setContentView(R.layout.lockscreenactivity_main);
-
     }
 
     public void openLockScreen() {
@@ -34,4 +33,5 @@ public class LockScreen extends Activity {
     public void unlockScreen(View view) {
         android.os.Process.killProcess((android.os.Process.myPid()));
     }
+
 }
