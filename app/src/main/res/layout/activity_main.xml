@@ -58,7 +58,9 @@
                     android:layout_weight="1"
                     android:text="@string/Button1Text"
                     android:onClick="buttonOnClick"
-                    android:layout_marginRight="@dimen/main_button_margin" />
+                    android:layout_marginRight="@dimen/main_button_margin"
+                    android:gravity="center"
+                    android:background="@drawable/button_selector"/>
                 <Button
                     android:id="@+id/Button2"
                     android:layout_height="65dp"
@@ -66,7 +68,9 @@
                     android:layout_weight="1"
                     android:layout_alignParentRight="true"
                     android:text="@string/Button2Text"
-                    android:onClick="buttonOnClick" />
+                    android:onClick="buttonOnClick"
+                    android:gravity="center"
+                    android:background="@drawable/button_selector"/>
             </TableRow>
 
             <TableRow
@@ -82,7 +86,9 @@
                     android:text="@string/Button3Text"
                     android:layout_weight="2"
                     android:onClick="buttonOnClick"
-                    android:layout_marginRight="@dimen/main_button_margin" />
+                    android:layout_marginRight="@dimen/main_button_margin"
+                    android:gravity="center"
+                    android:background="@drawable/button_selector"/>
                 <Button
                     android:id="@+id/Button4"
                     android:layout_height="65dp"
@@ -90,7 +96,9 @@
                     android:layout_alignParentRight="true"
                     android:layout_weight="1"
                     android:text="@string/Button4Text"
-                    android:onClick="buttonOnClick" />
+                    android:onClick="buttonOnClick"
+                    android:gravity="center"
+                    android:background="@drawable/button_selector"/>
             </TableRow>
         </TableLayout>
 

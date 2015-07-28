@@ -25,13 +25,15 @@ public class SafeZoneDBHelper extends SQLiteOpenHelper {
     private static final String COMMA = ",";
 
     private static final String SQL_CREATE_BLUETOOTH =
-            "CREATE TABLE " + DataContract.BluetoothTable.TABLE_NAME + " ("
+            "CREATE TABLE " + DataContract.BluetoothTable.TABLE_NAME + " ("+
+                    DataContract.BluetoothTable.COLUMN_TITLE + TYPE_VARCHAR + COMMA
                     + DataContract.BluetoothTable.COLUMN_MAC + TYPE_VARCHAR
                     + "PRIMARY KEY" + COMMA + DataContract.BluetoothTable
                     .COLUMN_DEVICE_ID + TYPE_VARCHAR + COMMA + " )";
 
     private static final String SQL_CREATE_WIFI =
             "CREATE TABLE " + DataContract.WifiTable.TABLE_NAME + " ("
+                    + DataContract.BluetoothTable.COLUMN_TITLE + TYPE_VARCHAR + COMMA
                     + DataContract.WifiTable.COLUMN_SSID + TYPE_VARCHAR
                     + "PRIMARY KEY" + COMMA + " )";
 

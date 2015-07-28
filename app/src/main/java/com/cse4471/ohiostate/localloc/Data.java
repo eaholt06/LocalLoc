@@ -24,7 +24,7 @@ public final class Data {
     private Context context;
 
     /**
-     *
+     * @param title - Title of the newly connected Bluetooth device safe zone
      * @param mac - Mac address of the newly connected Bluetooth device
      * @param deviceID - Newly connected device ID name
      * @return rowID if device was successfully added, -1 otherwise
@@ -33,12 +33,13 @@ public final class Data {
      *
      * This method adds a new Bluetooth connection to the database.
      */
-    public long AddToBluetooth(String mac, String deviceID) {
+    public long AddToBluetooth(String title, String mac, String deviceID) {
         SafeZoneDBHelper DBHelper = new SafeZoneDBHelper(context);
 
         SQLiteDatabase db = DBHelper.getWritableDatabase();
 
         ContentValues values = new ContentValues();
+        values.put(DataContract.BluetoothTable.COLUMN_TITLE, title);
         values.put(DataContract.BluetoothTable.COLUMN_MAC, mac);
         values.put(DataContract.BluetoothTable.COLUMN_DEVICE_ID, deviceID);
 
@@ -53,7 +54,7 @@ public final class Data {
     }
 
     /**
-     *
+     * @param title - Title of the newly connected Bluetooth device safe zone
      * @param ssid - The ssid of the Wifi connection to be added
      * @return rowID if device was successfully added, -1 otherwise
      * @requires the ssid is not already in the database
@@ -61,12 +62,13 @@ public final class Data {
      *
      * This method adds a new Bluetooth connection to the database.
      */
-    public long AddToWiFi (String ssid) {
+    public long AddToWiFi (String title, String ssid) {
         SafeZoneDBHelper DBHelper = new SafeZoneDBHelper(context);
 
         SQLiteDatabase db = DBHelper.getWritableDatabase();
 
         ContentValues values = new ContentValues();
+        values.put(DataContract.BluetoothTable.COLUMN_TITLE, title);
         values.put(DataContract.WifiTable.COLUMN_SSID, ssid);
 
         long rowID = db.insert(

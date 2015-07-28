@@ -13,6 +13,9 @@
     <string name="button_next">Next >></string>
     <string name="button_back">\u003C\u003C Back</string>
     <string name="type_prompt">What type of Safe Zone is this?</string>
+    <string name="bt_devidPrompt">Bluetooth Device ID: </string>
+    <string name="bt_macPrompt">Bluetooth MAC address: </string>
+    <string name="wifi_devidPrompt">Wifi Device ID: </string>
 
     <string-array name="zone_types">
         <item>Geolocation</item>

@@ -33,15 +33,15 @@ public class MainActivity
         //v.setBackground(getResources().getDrawable(R.drawable.button_hover));
         switch (v.getId()) {
             case R.id.Button1:
-                nextActivity = new Intent(MainActivity.this, createSafeZone.class);
+                nextActivity = new Intent(MainActivity.this, CreateSafeZone.class);
                 Log.d(TAG, "set safe zone button pressed");
                 break;
             case R.id.Button2:
-                nextActivity = new Intent(MainActivity.this, modifySafeZone.class);
+                nextActivity = new Intent(MainActivity.this, ModifySafeZone.class);
                 Log.d(TAG, "modify safe zone button pressed");
                 break;
             case R.id.Button3:
-                nextActivity = new Intent(MainActivity.this, deleteSafeZone.class);
+                nextActivity = new Intent(MainActivity.this, DeleteSafeZone.class);
                 Log.d(TAG, "delete safe zone button pressed");
                 break;
             case R.id.Button4:

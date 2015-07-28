@@ -14,12 +14,14 @@ public class DataContract {
     //The following inner classes define each table in the database
     public static abstract class BluetoothTable implements BaseColumns {
         public static final String TABLE_NAME = "BLUETOOTH";
+        public static final String COLUMN_TITLE = "Title";
         public static final String COLUMN_MAC = "Mac";
         public static final String COLUMN_DEVICE_ID = "DeviceID";
     }
 
     public static abstract class WifiTable implements BaseColumns {
         public static final String TABLE_NAME = "WIFI";
+        public static final String COLUMN_TITLE = "Title";
         public static final String COLUMN_SSID = "ssid";
     }
 }

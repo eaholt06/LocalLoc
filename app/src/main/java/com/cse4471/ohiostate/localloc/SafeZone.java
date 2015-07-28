@@ -12,7 +12,7 @@ public class SafeZone {
     private String mTitle;
     private String mZoneType;
     private String mDeviceId;
-    private Location mGeo;
+    private String mMacId;
 
     public SafeZone()
 
@@ -24,7 +24,7 @@ public class SafeZone {
 
     public void setTitle(String Title) {
 
-        mTitle = Title;
+        this.mTitle = Title;
     }
 
     public String getTitle() {
@@ -47,31 +47,34 @@ public class SafeZone {
         return mDeviceId;
     }
 
-    public void setDeviceId(Context context, String DeviceId) {
+    public String getMacId() {
+        return this.mMacId;
+    }
 
+    public boolean setDeviceId(Context context) {
         ZoneChecker.updateZone(context);
-
         if (this.getZoneType().equals("WiFi")) {
-            if (!ZoneChecker.ssid.equals("Not Connected")){
+            if (!ZoneChecker.ssid.equals("Not Connected")) {
                 this.mDeviceId = ZoneChecker.ssid;
-            } else {
-                this.mDeviceId = DeviceId;
+                return true;
             }
         } else if (this.getZoneType().equals("Bluetooth")) {
             if (!ZoneChecker.bluetoothID.equals("Not Connected")) {
                 this.mDeviceId = ZoneChecker.bluetoothID;
-            } else {
-                this.mDeviceId = DeviceId;
+                this.mMacId = ZoneChecker.bluetoothMAC;
+                return true;
             }
         }
+        return false;
     }
 
-    public Location getGeo() {
-        return mGeo;
-    }
+    public void setDeviceId(String DeviceId, String MacId) {
+        if(this.getZoneType().equalsIgnoreCase("Bluetooth")){
+            this.mDeviceId = DeviceId;
+            this.mMacId = MacId;
+        }else if(this.getZoneType().equalsIgnoreCase("Wifi")){
+            this.mDeviceId = DeviceId;
+        }
 
-    public void setGeo(Location geo) {
-
-        this.mGeo = geo;
     }
 }
