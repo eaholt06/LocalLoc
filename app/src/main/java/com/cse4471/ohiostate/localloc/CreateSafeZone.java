@@ -18,7 +18,7 @@ public class CreateSafeZone extends AppCompatActivity {
     private SafeZone sz;
     FragmentManager fm;
     int currentFrag;
-    private static final String TAG = createSafeZone.class.getSimpleName();
+    private static final String TAG = CreateSafeZone.class.getSimpleName();
     CSZNameFragment nameFrag;
 
     @Override
