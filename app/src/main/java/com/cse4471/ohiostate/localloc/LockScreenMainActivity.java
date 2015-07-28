@@ -19,7 +19,7 @@ public class LockScreenMainActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState){
 
-        boolean safe = ZoneChecker.updateZone(this);
+        boolean safe = true;
         if(safe){
             Intent startMain = new Intent(Intent.ACTION_MAIN);
             startMain.addCategory(Intent.CATEGORY_HOME);
