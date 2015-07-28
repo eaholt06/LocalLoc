@@ -6,7 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
-public class deleteSafeZone extends ActionBarActivity {
+public class DeleteSafeZone extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
