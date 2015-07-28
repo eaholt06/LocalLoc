@@ -15,11 +15,11 @@
         android:orientation="vertical"
         android:layout_gravity="center">
 
-        <RadioButton
+    <!--    <RadioButton
             android:id="@+id/radioButton1"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Geolocation" />
+            android:text="Geolocation" />  -->
 
         <RadioButton
             android:id="@+id/radioButton2"

@@ -2,16 +2,20 @@ package com.cse4471.ohiostate.localloc;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
 
-public class ModifySafeZone extends ActionBarActivity {
+public class ModifySafeZone extends AppCompatActivity {
 
+    Data data = new Data();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modify_safe_zone);
+
+
     }
 
 
