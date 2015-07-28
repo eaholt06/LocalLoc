@@ -14,7 +14,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 
-public class createSafeZone extends AppCompatActivity {
+public class CreateSafeZone extends AppCompatActivity {
     private SafeZone sz;
     FragmentManager fm;
     int currentFrag;
