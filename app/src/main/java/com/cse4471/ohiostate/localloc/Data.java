@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.ArrayMap;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -24,7 +25,7 @@ public final class Data {
     private Context context;
 
     /**
-     *
+     * @param title - Title of the newly connected Bluetooth device safe zone
      * @param mac - Mac address of the newly connected Bluetooth device
      * @param deviceID - Newly connected device ID name
      * @return rowID if device was successfully added, -1 otherwise
@@ -33,12 +34,13 @@ public final class Data {
      *
      * This method adds a new Bluetooth connection to the database.
      */
-    public long AddToBluetooth(String mac, String deviceID) {
+    public long AddToBluetooth(String title, String mac, String deviceID) {
         SafeZoneDBHelper DBHelper = new SafeZoneDBHelper(context);
 
         SQLiteDatabase db = DBHelper.getWritableDatabase();
 
         ContentValues values = new ContentValues();
+        values.put(DataContract.BluetoothTable.COLUMN_TITLE, title);
         values.put(DataContract.BluetoothTable.COLUMN_MAC, mac);
         values.put(DataContract.BluetoothTable.COLUMN_DEVICE_ID, deviceID);
 
@@ -53,7 +55,7 @@ public final class Data {
     }
 
     /**
-     *
+     * @param title - Title of the newly connected Bluetooth device safe zone
      * @param ssid - The ssid of the Wifi connection to be added
      * @return rowID if device was successfully added, -1 otherwise
      * @requires the ssid is not already in the database
@@ -61,12 +63,13 @@ public final class Data {
      *
      * This method adds a new Bluetooth connection to the database.
      */
-    public long AddToWiFi (String ssid) {
+    public long AddToWiFi (String title, String ssid) {
         SafeZoneDBHelper DBHelper = new SafeZoneDBHelper(context);
 
         SQLiteDatabase db = DBHelper.getWritableDatabase();
 
         ContentValues values = new ContentValues();
+        values.put(DataContract.BluetoothTable.COLUMN_TITLE, title);
         values.put(DataContract.WifiTable.COLUMN_SSID, ssid);
 
         long rowID = db.insert(
@@ -81,7 +84,7 @@ public final class Data {
 
     /**
      *
-     * @param mac - Mac address of the Bluetooth commection to remove
+     * @param mac - Mac address of the Bluetooth connection to remove
      * @return the number of rows deleted from the database
      * @requires the mac address is in the database
      * @ensures the Bluetooth device is removed from the database
@@ -164,12 +167,13 @@ public final class Data {
      * This method returns a map of <mac address, device ID> pairs of all
      * the BLuetooth connections in the database.
      */
-    public Map ListBluetooth() {
+    public ArrayMap<String, ArrayList<String>> ListBluetooth() {
         SafeZoneDBHelper DBHelper = new SafeZoneDBHelper(context);
 
         SQLiteDatabase db = DBHelper.getReadableDatabase();
 
         String[] projection = {
+                DataContract.BluetoothTable.COLUMN_TITLE,
                 DataContract.BluetoothTable.COLUMN_MAC,
                 DataContract.BluetoothTable.COLUMN_DEVICE_ID};
 
@@ -182,13 +186,21 @@ public final class Data {
                 null,
                 DataContract.BluetoothTable.COLUMN_DEVICE_ID);
 
-        LinkedHashMap<String,String> bluetoothList = new LinkedHashMap<>();
-        String mac, deviceID;
+        ArrayMap<String, ArrayList<String>> bluetoothList = new ArrayMap<String, ArrayList<String>>();
+
+
+
+        //LinkedHashMap<String,String> bluetoothList = new LinkedHashMap<>();
+        String title, mac, deviceID;
         c.moveToFirst();
         while(c.moveToNext()) {
-            mac = c.getString(0);
-            deviceID = c.getString(1);
-            bluetoothList.put(mac,deviceID);
+            title = c.getString(0);
+            mac = c.getString(1);
+            deviceID = c.getString(2);
+            ArrayList<String> tempArrList = new ArrayList<String>();
+            tempArrList.add(title);
+            tempArrList.add(deviceID);
+            bluetoothList.put(mac,tempArrList);
         }
 
         c.close();
@@ -205,7 +217,7 @@ public final class Data {
      * This method returns an arraylist of all the wifi
      * connections in the database.
      */
-    public ArrayList ListWifi() {
+    public ArrayMap<String, String> ListWifi() {
         SafeZoneDBHelper DBHelper = new SafeZoneDBHelper(context);
 
         SQLiteDatabase db = DBHelper.getReadableDatabase();
@@ -222,12 +234,13 @@ public final class Data {
                 null,
                 DataContract.WifiTable.COLUMN_SSID);
 
-        ArrayList<String> wifiList = new ArrayList<>();
-        String ssid;
+        ArrayMap<String, String> wifiList = new ArrayMap<>();
+        String title, ssid;
         c.moveToFirst();
         while(c.moveToNext()) {
-            ssid = c.getString(0);
-            wifiList.add(ssid);
+            title = c.getString(0);
+            ssid = c.getString(1);
+            wifiList.put(ssid, title);
         }
 
         c.close();

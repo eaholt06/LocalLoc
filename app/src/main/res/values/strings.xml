@@ -2,10 +2,10 @@
 <resources>
 
     <string name="app_name">LocalLoc</string>
-    <string name="Button1Text">Set New Safe Zone</string>
-    <string name="Button2Text">Modify Existing Safe Zone</string>
-    <string name="Button3Text">Delete Existing Safe Zone</string>
-    <string name="Button4Text">Settings</string>
+    <string name="Button1Text">Set New\nSafe Zone</string>
+    <string name="Button2Text">Modify\nSafe Zone</string>
+    <string name="Button3Text">Delete\nSafe Zone</string>
+    <string name="Button4Text">Settings\n</string>
     <string name="main_prompt_text">Pick an option below</string>
     <string name="main_notInSafeZone">You are currently not in a Safe Zone</string>
     <string name="main_inSafeZone">You are currently in a Safe Zone</string>
@@ -13,6 +13,9 @@
     <string name="button_next">Next >></string>
     <string name="button_back">\u003C\u003C Back</string>
     <string name="type_prompt">What type of Safe Zone is this?</string>
+    <string name="bt_devidPrompt">Bluetooth Device ID: </string>
+    <string name="bt_macPrompt">Bluetooth MAC address: </string>
+    <string name="wifi_devidPrompt">Wifi Device ID: </string>
 
     <string-array name="zone_types">
         <item>Geolocation</item>

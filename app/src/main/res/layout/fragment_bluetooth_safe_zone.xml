@@ -3,28 +3,44 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
     <TextView
-        android:id="@+id/tv_1"
+        android:id="@+id/bt_devidPrompt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Title: "
-        android:textSize="30sp"/>
+        android:text="@string/bt_devidPrompt"
+        android:textSize="25sp"
+        android:textColor="@color/theme_text"/>
+    <EditText
+        android:id="@+id/bt_devidEnter"
+        android:layout_width="100dp"
+        android:textSize="22dp"
+        android:clickable="true"
+        android:onClick="btdevidTextClick"
+        android:layout_height="wrap_content"
+        android:textColor="@color/input_text"/>
+
     <TextView
-        android:id="@+id/tv_2"
+        android:id="@+id/bt_macPrompt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp"/>
-    <TextView
-        android:id="@+id/tv_3"
-        android:layout_width="wrap_content"
+        android:text="@string/bt_macPrompt"
+        android:textSize="25sp"
+        android:textColor="@color/theme_text"/>
+    <EditText
+        android:id="@+id/bt_macEnter"
+        android:layout_width="100dp"
+        android:textSize="22dp"
+        android:clickable="true"
+        android:onClick="btmacTextClick"
         android:layout_height="wrap_content"
-        android:textSize="20sp"/>
+        android:textColor="@color/input_text"/>
 
     <Button
         android:layout_width="@dimen/button_width"
         android:layout_height="@dimen/button_height"
-        android:id="@+id/CSZSubmit"
+        android:id="@+id/CSZ_btSubmit"
         android:text="Submit"
+        android:onClick="submitSafeZone"
+        android:layout_gravity="center"
         android:background="@drawable/button_selector"/>
-
 
 </LinearLayout>

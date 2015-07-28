@@ -19,13 +19,14 @@ public class MainActivity
 //    private DrawerLayout drawerLayout;
 //    private ListView drawerList;
     private static final String TAG = MainActivity.class.getSimpleName();
+    public static ZoneChecker zone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        new ZoneChecker(this);
+        zone = new ZoneChecker(this);
     }
 
     public void buttonOnClick(View v){
@@ -33,15 +34,15 @@ public class MainActivity
         //v.setBackground(getResources().getDrawable(R.drawable.button_hover));
         switch (v.getId()) {
             case R.id.Button1:
-                nextActivity = new Intent(MainActivity.this, createSafeZone.class);
+                nextActivity = new Intent(MainActivity.this, CreateSafeZone.class);
                 Log.d(TAG, "set safe zone button pressed");
                 break;
             case R.id.Button2:
-                nextActivity = new Intent(MainActivity.this, modifySafeZone.class);
+                nextActivity = new Intent(MainActivity.this, ModifySafeZone.class);
                 Log.d(TAG, "modify safe zone button pressed");
                 break;
             case R.id.Button3:
-                nextActivity = new Intent(MainActivity.this, deleteSafeZone.class);
+                nextActivity = new Intent(MainActivity.this, DeleteSafeZone.class);
                 Log.d(TAG, "delete safe zone button pressed");
                 break;
             case R.id.Button4:

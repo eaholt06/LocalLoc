@@ -2,6 +2,7 @@ package com.cse4471.ohiostate.localloc;
 
 import android.app.FragmentManager;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -11,15 +12,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class createSafeZone extends AppCompatActivity {
+public class CreateSafeZone extends FragmentActivity // implements CSZBluetoothFragment.OnCompleteListener1
+ {
     private SafeZone sz;
     FragmentManager fm;
     int currentFrag;
-    private static final String TAG = createSafeZone.class.getSimpleName();
+    private static final String TAG = CreateSafeZone.class.getSimpleName();
     CSZNameFragment nameFrag;
+    boolean devidSet = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,19 +42,51 @@ public class createSafeZone extends AppCompatActivity {
         fragmentTransaction.add(R.id.createSafeZone_fragContainer, nameFrag, "nameFrag").commit();
         currentFrag = 1;
         sz = new SafeZone();
+        devidSet = sz.setDeviceId(this);
+    }
+
+    public void btdevidTextClick(){
+        EditText et = (EditText) fm.findFragmentByTag("btFrag").getView().findViewById(R.id.bt_devidEnter);
+        et.setText(sz.getDeviceId());
+    }
+
+    public void btmacTextClick(){
+        EditText et2 = (EditText) fm.findFragmentByTag("btFrag").getView().findViewById(R.id.bt_macEnter);
+        et2.setText(sz.getMacId());
+    }
+
+    public void wifiTextClick(){
+        EditText wifiet = (EditText) fm.findFragmentByTag("wifiFrag").getView().findViewById(R.id.wifi_devidEnter);
+        wifiet.setText(sz.getDeviceId());
+    }
+
+    public void submitSafeZone(View v){
+        Data data = new Data();
+        int buttonId = v.getId();
+        if(buttonId == R.id.CSZ_btSubmit){
+            EditText et1 = (EditText)fm.findFragmentByTag("btFrag").getView().findViewById(R.id.bt_devidEnter);
+            EditText et2 = (EditText)fm.findFragmentByTag("btFrag").getView().findViewById(R.id.bt_macEnter);
+            sz.setDeviceId(et1.getText().toString(), et2.getText().toString());
+
+            //Add safe zone to database
+            data.AddToBluetooth(sz.getTitle(), sz.getDeviceId(), sz.getMacId());
+        } else if(buttonId == R.id.CSZ_wifiSubmit){
+            EditText et = (EditText)fm.findFragmentByTag("wifiFrag").getView().findViewById(R.id.wifi_devidEnter);
+            //Add wifi safe zone to database
+            data.AddToWiFi(sz.getTitle(), sz.getDeviceId());
+        }
+        Toast.makeText(getApplicationContext(), "Safe Zone saved successfully", Toast.LENGTH_LONG).show();
     }
 
     public void selectFragment(View v){
         int buttonID = v.getId();
         Button btn = (Button)findViewById(buttonID);
+
         if(buttonID == R.id.button_next) {
             switch (currentFrag) {
                 case 1:
                     //Pressing next button saves user defined title in SafeZone object
-                    // EditText et = (EditText) findViewById(R.id.name_input);
-                    // String title = et.getText().toString();
-                    // String title2 = nameFrag.getText(R.id.name_input).toString();
-                    EditText et = (EditText) getFragmentManager().findFragmentByTag("nameFrag").getView().findViewById(R.id.name_input);
+                    EditText et = (EditText) fm.findFragmentByTag("nameFrag").getView().findViewById(R.id.name_input);
                     if (et == null) {
                         Log.d(TAG, "edittext is empty");
                     } else {
@@ -74,29 +110,33 @@ public class createSafeZone extends AppCompatActivity {
                     RadioGroup rg = (RadioGroup) findViewById(R.id.radioGroup);
                     RadioButton rb = (RadioButton) findViewById(rg.getCheckedRadioButtonId());
 
-                    while (rb == null) {
+                    if (rb == null) {
                         Toast.makeText(getApplicationContext(), "Please pick a Safe Zone type",
                                 Toast.LENGTH_LONG).show();
-                        rb = (RadioButton) findViewById(rg.getCheckedRadioButtonId());
-                    }
-                    String zt = rb.getText().toString();
-                    sz.setZoneType(zt);
+                    } else {
+                        String zt = rb.getText().toString();
+                        sz.setZoneType(zt);
 
-                    String[] types = getApplicationContext().getResources().getStringArray(R.array.zone_types);
-                    Log.d(TAG, "From zone_types array. SelectFragment-case2: " + types[0]);
-                    if (zt.equals(types[0])) {
+                        String[] types = getApplicationContext().getResources().getStringArray(R.array.zone_types);
+                /*    if (zt.equals(types[0])) {
                         android.app.FragmentTransaction ft2 = fm.beginTransaction();
                         ft2.replace(R.id.createSafeZone_fragContainer, new CSZGeoFragment()).commit();
-                    } else if (zt.equals(types[1])) {
-                        android.app.FragmentTransaction ft2 = fm.beginTransaction();
-                        ft2.replace(R.id.createSafeZone_fragContainer, new CSZBluetoothFragment()).commit();
-                    } else if (zt.equals(types[2])) {
-                        android.app.FragmentTransaction ft2 = fm.beginTransaction();
-                        ft2.replace(R.id.createSafeZone_fragContainer, new CSZWifiFragment()).commit();
+                }*/
+                        if (zt.equals(types[1])) {
+                            android.app.FragmentTransaction ft2 = fm.beginTransaction();
+                            ft2.replace(R.id.createSafeZone_fragContainer, new CSZBluetoothFragment(), "btFrag").commit();
+                            fm.executePendingTransactions();
+                            Log.d(TAG, "Inside SelectFragment-case2, bluetooth transaction added ");
+                        } else if (zt.equals(types[2])) {
+                            android.app.FragmentTransaction ft2 = fm.beginTransaction();
+                            ft2.replace(R.id.createSafeZone_fragContainer, new CSZWifiFragment(), "wifiFrag").commit();
+                            fm.executePendingTransactions();
+                            Log.d(TAG, "Inside SelectFragment-case2, wifi transaction added ");
+                        }
+                        currentFrag = 3;
+                        Button next = (Button) findViewById(R.id.button_next);
+                        next.setVisibility(View.INVISIBLE);
                     }
-                    currentFrag = 3;
-                    Button next = (Button) findViewById(R.id.button_next);
-                    next.setVisibility(View.INVISIBLE);
                 }
             }
         if(buttonID == R.id.button_back){
@@ -144,20 +184,4 @@ public class createSafeZone extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-    /**
-     * A placeholder fragment containing a simple view.
-
-    public static class PlaceholderFragment extends Fragment {
-
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.PlaceholderFragment, container, false);
-            return rootView;
-        }
-    } */
 }

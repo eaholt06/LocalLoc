@@ -13,6 +13,7 @@ public class ZoneChecker {
     public static boolean safeZone;
     public static WiFi wifi;
     public static Bluetooth bt;
+    public static Data db;
     //public static GeoLocation geo;
 
 
@@ -27,6 +28,7 @@ public class ZoneChecker {
         bluetoothID = "Not Connected";
         bluetoothMAC = null;
         safeZone = false;
+        db = new Data();
 
     }
 
@@ -39,7 +41,8 @@ public class ZoneChecker {
     }
 
 
-    public static boolean updateZone(Context context) {
+    public static void updateZone(Context context) {
+
 
         wifi.checkWIFI(context);
         ssid = wifi.ssid;
@@ -47,13 +50,11 @@ public class ZoneChecker {
         bluetoothID = bt.bluetoothID;
         bluetoothMAC = bt.bluetoothMAC;
 
-        //compare bt to Bluetooth Info
-        boolean btSafe = false;
-        //compare wifi to wifi list
-        boolean wifiSafe = false;
-        //compare geo to geo list
-        //boolean geoSafe = false;
-
-        return btSafe || wifiSafe;
     }
+
+    public static boolean checkZone() {
+
+        return db.IsInBluetooth(bluetoothMAC) || db.IsInWifi(ssid);
+    }
+
 }
